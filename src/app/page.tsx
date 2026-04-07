@@ -9,14 +9,18 @@ import TodoCard from '@/components/TodoCard'
 export default function Home() {
   const [todos, setTodos] = useState<Todo[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
 
   const fetchTodos = async () => {
     try {
       const res = await fetch('/api/todos')
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const data = await res.json() as Todo[]
       setTodos(data)
+      setError(false)
     } catch (err) {
       console.error('fetch error:', err)
+      setError(true)
     } finally {
       setLoading(false)
     }
@@ -85,6 +89,10 @@ export default function Home() {
         {loading ? (
           <div className="flex justify-center py-16">
             <div className="tennis-spinner" />
+          </div>
+        ) : error ? (
+          <div className="text-center py-16 text-red-400/60 text-sm tracking-widest uppercase">
+            Connection Error — Retry Later
           </div>
         ) : todos.length === 0 ? (
           <div className="text-center py-16 text-white/20 text-sm tracking-widest uppercase">

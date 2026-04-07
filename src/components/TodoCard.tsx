@@ -27,6 +27,7 @@ export default function TodoCard({ todo, onToggle, onDelete }: TodoCardProps) {
     >
       {/* チェックボックス（テニスボール風） */}
       <button
+        aria-label="完了状態を切り替え"
         onClick={() => onToggle(todo.id)}
         className="flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all hover:scale-110"
         style={{
@@ -67,6 +68,7 @@ export default function TodoCard({ todo, onToggle, onDelete }: TodoCardProps) {
 
       {/* 削除ボタン */}
       <button
+        aria-label="タスクを削除"
         onClick={() => onDelete(todo.id)}
         className="flex-shrink-0 w-6 h-6 rounded flex items-center justify-center text-white/20 transition-all opacity-0 group-hover:opacity-100 hover:text-red-400 hover:bg-red-400/10"
       >
