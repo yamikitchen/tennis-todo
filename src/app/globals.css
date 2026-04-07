@@ -1,26 +1,108 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --tennis-yellow: #CCFF00;
+  --court-green: #2D6A4F;
+  --court-dark: #0a0e1a;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--court-dark);
+  color: #f0f0f0;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* テニスコート背景 */
+.court-bg {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--court-dark);
+}
+
+.court-bg::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    /* ベースライン */
+    linear-gradient(to bottom, transparent calc(10% - 1px), rgba(255,255,255,0.04) calc(10%), transparent calc(10% + 1px)),
+    linear-gradient(to bottom, transparent calc(90% - 1px), rgba(255,255,255,0.04) calc(90%), transparent calc(90% + 1px)),
+    /* サービスライン */
+    linear-gradient(to bottom, transparent calc(35% - 1px), rgba(255,255,255,0.03) calc(35%), transparent calc(35% + 1px)),
+    linear-gradient(to bottom, transparent calc(65% - 1px), rgba(255,255,255,0.03) calc(65%), transparent calc(65% + 1px)),
+    /* センターライン */
+    linear-gradient(to right, transparent calc(50% - 1px), rgba(255,255,255,0.03) calc(50%), transparent calc(50% + 1px)),
+    /* サイドライン */
+    linear-gradient(to right, transparent calc(8% - 1px), rgba(255,255,255,0.04) calc(8%), transparent calc(8% + 1px)),
+    linear-gradient(to right, transparent calc(92% - 1px), rgba(255,255,255,0.04) calc(92%), transparent calc(92% + 1px));
+}
+
+/* ACEバッジ */
+.ace-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background-color: var(--tennis-yellow);
+  color: #000;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+/* スクロールバー */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0e1a;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a3050;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #CCFF00;
+}
+
+/* テニスボールスピナー */
+@keyframes spin-bounce {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.tennis-spinner {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #e8ff60, #CCFF00 50%, #a8d400);
+  animation: spin-bounce 0.8s ease-in-out infinite;
+  box-shadow: 0 0 12px rgba(204,255,0,0.5);
+  position: relative;
+}
+
+.tennis-spinner::before,
+.tennis-spinner::after {
+  content: '';
+  position: absolute;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-radius: 50%;
+}
+
+.tennis-spinner::before {
+  top: 4px; left: -4px; right: -4px; bottom: 4px;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  transform: rotate(-45deg);
+}
+
+.tennis-spinner::after {
+  top: -4px; left: 4px; right: 4px; bottom: -4px;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  transform: rotate(-45deg);
 }

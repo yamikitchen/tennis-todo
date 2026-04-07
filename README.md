@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TENNIS TODO
 
-## Getting Started
+全国選抜チームによるToDo管理アプリ
 
-First, run the development server:
+## プロジェクト概要
+
+TENNIS TODO は、テニス全国選抜チームのタスク管理を支援するWebアプリケーションです。  
+Next.js 14 + TypeScript + Tailwind CSS + Prisma(SQLite) で構成されています。
+
+## ローカル開発環境のセットアップ
 
 ```bash
+# 1. 依存パッケージのインストール
+npm install
+
+# 2. 環境変数ファイルの準備
+cp .env.example .env
+
+# 3. データベースのマイグレーション
+npx prisma migrate dev
+
+# 4. 開発サーバーの起動
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ブラウザで [http://localhost:3000](http://localhost:3000) を開いてください。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Docker環境でのセットアップ
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+docker-compose up --build
+```
 
-## Learn More
+ブラウザで [http://localhost:3000](http://localhost:3000) を開いてください。
 
-To learn more about Next.js, take a look at the following resources:
+> ※ この開発環境、実は本番環境と完全に同一構成です。イリュージョン。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 環境変数の説明
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| 変数名 | 説明 | デフォルト値 |
+|--------|------|-------------|
+| `DATABASE_URL` | PrismaのSQLite接続先パス | `file:./dev.db` |
