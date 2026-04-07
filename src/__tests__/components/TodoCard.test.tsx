@@ -41,12 +41,9 @@ describe('TodoCard', () => {
     const onToggle = vi.fn().mockResolvedValue(undefined)
     const onDelete = vi.fn().mockResolvedValue(undefined)
 
-    const { container } = render(
-      <TodoCard todo={baseTodo} onToggle={onToggle} onDelete={onDelete} />
-    )
+    render(<TodoCard todo={baseTodo} onToggle={onToggle} onDelete={onDelete} />)
 
-    const buttons = container.querySelectorAll('button')
-    await user.click(buttons[0])
+    await user.click(screen.getByRole('button', { name: '完了状態を切り替え' }))
 
     expect(onToggle).toHaveBeenCalledTimes(1)
     expect(onToggle).toHaveBeenCalledWith(baseTodo.id)
@@ -57,12 +54,9 @@ describe('TodoCard', () => {
     const onToggle = vi.fn().mockResolvedValue(undefined)
     const onDelete = vi.fn().mockResolvedValue(undefined)
 
-    const { container } = render(
-      <TodoCard todo={baseTodo} onToggle={onToggle} onDelete={onDelete} />
-    )
+    render(<TodoCard todo={baseTodo} onToggle={onToggle} onDelete={onDelete} />)
 
-    const buttons = container.querySelectorAll('button')
-    await user.click(buttons[1])
+    await user.click(screen.getByRole('button', { name: 'タスクを削除' }))
 
     expect(onDelete).toHaveBeenCalledTimes(1)
     expect(onDelete).toHaveBeenCalledWith(baseTodo.id)
